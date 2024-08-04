@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatapp/screens/splash_screen.dart';
+import 'package:chatapp/utils/Themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Connectify',
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.dark,
       home: SplashScreen(),
     );
   }
