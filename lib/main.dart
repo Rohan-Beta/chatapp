@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:chatapp/screens/splash_screen.dart';
+import 'package:chatapp/screens/welcome/welcome_screen.dart';
 import 'package:chatapp/utils/Themes.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: SplashScreen(),
+      home: WelcomeScreen(),
     );
   }
 }
