@@ -44,7 +44,7 @@ class BottomNavBarWidget extends StatelessWidget {
                         ? (MediaQuery.sizeOf(context).width / 100) * 0.8
                         : ScreenHeleper.isTablet(context)
                             ? (MediaQuery.sizeOf(context).width / 100) * 0.7
-                            : (MediaQuery.sizeOf(context).width / 100) * 2.5,
+                            : (MediaQuery.sizeOf(context).width / 100) * 2,
                     child: Icon(
                       icon,
                       color: Colors.black,
