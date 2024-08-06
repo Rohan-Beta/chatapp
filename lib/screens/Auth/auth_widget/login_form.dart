@@ -2,6 +2,7 @@
 
 import 'package:chatapp/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -51,6 +52,9 @@ class LoginForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             PrimaryButton(
+              onTap: () {
+                Get.offAllNamed("/homeScreen");
+              },
               buttonName: "LOGIN",
               icon: Icons.lock_open_sharp,
             ),
