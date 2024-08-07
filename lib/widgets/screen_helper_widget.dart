@@ -15,14 +15,14 @@ class ScreenHeleper extends StatelessWidget {
   });
 
   static bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < 800.0;
+      MediaQuery.of(context).size.width < 550.0;
 
   static bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 800 &&
-      MediaQuery.of(context).size.width < 1200;
+      MediaQuery.of(context).size.width >= 550 &&
+      MediaQuery.of(context).size.width < 1100;
 
   static bool isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 1200;
+      MediaQuery.of(context).size.width >= 1100;
 
   static double mobileMaxWidth(BuildContext context) =>
       MediaQuery.of(context).size.width * .8;

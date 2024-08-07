@@ -16,11 +16,15 @@ class ChatListWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: CupertinoSearchTextField(
-            controller: _textEditingController,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(30),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 6, bottom: 8),
+            child: CupertinoSearchTextField(
+              style: TextStyle(color: Colors.white),
+              controller: _textEditingController,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(30),
+              ),
             ),
           ),
         ),

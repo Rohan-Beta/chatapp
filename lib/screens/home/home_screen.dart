@@ -61,100 +61,139 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              // Icons.search,
               Icons.person_outline,
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert,
+          Padding(
+            padding: ScreenHeleper.isDesktop(context)
+                ? EdgeInsets.only(right: MediaQuery.sizeOf(context).width * 0.6)
+                : EdgeInsets.all(0),
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.more_vert,
+              ),
             ),
           ),
         ],
       ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            // Column(),
-            Positioned.fill(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: PageView(
-                  controller: pageController,
+        child: Container(
+          width: MediaQuery.sizeOf(context).width,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    right: ScreenHeleper.isDesktop(context)
+                        ? MediaQuery.sizeOf(context).width * 0.6
+                        : 0),
+                child: Stack(
                   children: [
-                    ChatListWidget(),
-                    ListTile(
-                      title: Text("group"),
+                    Positioned.fill(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: PageView(
+                          controller: pageController,
+                          children: [
+                            ChatListWidget(),
+                            ListTile(
+                              title: Text("group"),
+                            ),
+                            ListTile(
+                              title: Text("call"),
+                            ),
+                          ],
+                          onPageChanged: (value) {
+                            setState(
+                              () {
+                                _currentIndex = value;
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                    ListTile(
-                      title: Text("call"),
+                    // gemini ai
+                    _currentIndex == 0
+                        ? Positioned.fill(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 160, right: 40),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      FloatingActionButton(
+                                        backgroundColor: Colors.transparent,
+                                        child:
+                                            Lottie.asset(MyAssetsImage.gemini),
+                                        onPressed: () {},
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(),
+                    // floating add button
+                    Positioned.fill(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(bottom: 90, right: 40),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                FloatingActionButton(
+                                  backgroundColor: dPrimaryColor,
+                                  child: _currentIndex == 2
+                                      ? Icon(CupertinoIcons.phone_badge_plus)
+                                      : Icon(Icons.add),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      child: _buildBottomNavBar(),
                     ),
                   ],
-                  onPageChanged: (value) {
-                    setState(
-                      () {
-                        _currentIndex = value;
-                      },
-                    );
-                  },
                 ),
               ),
-            ),
-            // gemini ai
-            _currentIndex == 0
-                ? Positioned.fill(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 160, right: 40),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              FloatingActionButton(
-                                backgroundColor: Colors.transparent,
-                                child: Lottie.asset(MyAssetsImage.gemini),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
+              // desktop part
+              ScreenHeleper.isDesktop(context)
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                          bottom: 10,
+                          right: 10,
+                          top: 10,
+                          left: MediaQuery.sizeOf(context).width * 0.44),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                      ],
+                        child:
+                            Center(child: Lottie.asset(MyAssetsImage.welcome)),
+                      ),
+                    )
+                  : Container(
+                      width: 0,
+                      height: 0,
+                      color: Colors.transparent,
                     ),
-                  )
-                : Container(),
-            // floating add button
-            Positioned.fill(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 90, right: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        FloatingActionButton(
-                          backgroundColor: dPrimaryColor,
-                          child: _currentIndex == 2
-                              ? Icon(CupertinoIcons.phone_badge_plus)
-                              : Icon(Icons.add),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              left: 0,
-              child: _buildBottomNavBar(),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -166,10 +205,12 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         height: ScreenHeleper.isDesktop(context)
-            ? (MediaQuery.sizeOf(context).width / 100) * 4
-            : ScreenHeleper.isTablet(context)
-                ? (MediaQuery.sizeOf(context).width / 100) * 5.4
-                : (MediaQuery.sizeOf(context).width / 100) * 12,
+            ? (MediaQuery.sizeOf(context).width / 100) * 3
+            : ScreenHeleper.isDesktop(context)
+                ? (MediaQuery.sizeOf(context).width / 100) * 4
+                : ScreenHeleper.isTablet(context)
+                    ? (MediaQuery.sizeOf(context).width / 100) * 5.4
+                    : (MediaQuery.sizeOf(context).width / 100) * 12,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(30),

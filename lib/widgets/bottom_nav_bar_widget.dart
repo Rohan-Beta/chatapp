@@ -24,8 +24,14 @@ class BottomNavBarWidget extends StatelessWidget {
         onPressed(index);
       },
       child: Container(
-        height: (MediaQuery.sizeOf(context).width / 100) * 13,
-        width: (MediaQuery.sizeOf(context).width / 100) * 17,
+        height:
+            // ScreenHeleper.isDesktop(context)
+            //     ? (MediaQuery.sizeOf(context).width / 100) * 6
+            //     :
+            (MediaQuery.sizeOf(context).width / 100) * 13,
+        width: ScreenHeleper.isDesktop(context)
+            ? (MediaQuery.sizeOf(context).width / 100) * 6
+            : (MediaQuery.sizeOf(context).width / 100) * 17,
         decoration: BoxDecoration(
           color: Colors.transparent,
         ),
@@ -36,14 +42,14 @@ class BottomNavBarWidget extends StatelessWidget {
             (currentIndex == index)
                 ? Positioned(
                     left: ScreenHeleper.isDesktop(context)
-                        ? (MediaQuery.sizeOf(context).width / 100) * 7.2
+                        ? (MediaQuery.sizeOf(context).width / 100) * 1.8
                         : ScreenHeleper.isTablet(context)
                             ? (MediaQuery.sizeOf(context).width / 100) * 6.6
                             : (MediaQuery.sizeOf(context).width / 100) * 5,
                     bottom: ScreenHeleper.isDesktop(context)
-                        ? (MediaQuery.sizeOf(context).width / 100) * 0.8
+                        ? (MediaQuery.sizeOf(context).width / 100) * 0.1
                         : ScreenHeleper.isTablet(context)
-                            ? (MediaQuery.sizeOf(context).width / 100) * 0.7
+                            ? (MediaQuery.sizeOf(context).width / 100) * 0.5
                             : (MediaQuery.sizeOf(context).width / 100) * 2,
                     child: Icon(
                       icon,
