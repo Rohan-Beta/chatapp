@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
+import 'package:chatapp/screens/home/home_widget/glass_box.dart';
 import 'package:chatapp/utils/colors.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/utils/text.dart';
@@ -45,8 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: Text(
           AppTexts.appName,
           // style: Theme.of(context).textTheme.headlineSmall,
@@ -183,8 +186,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child:
-                            Center(child: Lottie.asset(MyAssetsImage.welcome)),
+                        alignment: Alignment.center,
+                        child: GlassBox(
+                          customChild: Lottie.asset(MyAssetsImage.welcome),
+                          // customChild: ChatScreen(),
+                        ),
                       ),
                     )
                   : Container(

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:chatapp/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class ChatTileWidget extends StatelessWidget {
@@ -33,7 +32,7 @@ class ChatTileWidget extends StatelessWidget {
               children: [
                 Image.asset(
                   imageUrl,
-                  width: 70,
+                  width: 60,
                 ),
                 SizedBox(width: 15),
                 Column(

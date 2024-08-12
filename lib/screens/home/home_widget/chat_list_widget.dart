@@ -2,8 +2,10 @@
 
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
 import 'package:chatapp/utils/images.dart';
+import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChatListWidget extends StatelessWidget {
   ChatListWidget({super.key});
@@ -22,17 +24,32 @@ class ChatListWidget extends StatelessWidget {
               style: TextStyle(color: Colors.white),
               controller: _textEditingController,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.13),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.white.withOpacity(0.15),
+                    Colors.white.withOpacity(0.05),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-        ChatTileWidget(
-          imageUrl: MyAssetsImage.girlPic,
-          name: "Unknown",
-          lastChat: "last chat",
-          lastChatTime: "time",
+        InkWell(
+          onTap: () {
+            Get.toNamed("/chatScreen");
+          },
+          child: ChatTileWidget(
+            imageUrl: MyAssetsImage.girlPic,
+            name: "Unknown",
+            lastChat: "last chat",
+            lastChatTime: "time",
+          ),
         ),
         ChatTileWidget(
           imageUrl: MyAssetsImage.girlPic,
