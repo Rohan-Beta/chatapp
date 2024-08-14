@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatapp/screens/Auth/auth_screen.dart';
+import 'package:chatapp/screens/home/home_screen.dart';
+import 'package:chatapp/screens/profile/profile_screen.dart';
 import 'package:chatapp/utils/Themes.dart';
 import 'package:chatapp/utils/screen_route.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: AuthScreen(),
+      home: ProfileScreen(),
       // home: SplashScreen(),
       getPages: screenRoute,
     );

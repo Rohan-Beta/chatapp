@@ -60,7 +60,6 @@ class LoginForm extends StatelessWidget {
                     PrimaryButton(
                       onTap: () {
                         authController.login(email.text, password.text);
-                        // Get.offAllNamed("/homeScreen");
                       },
                       buttonName: "LOGIN",
                       icon: Icons.lock_open_sharp,

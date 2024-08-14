@@ -11,6 +11,7 @@ import 'package:chatapp/widgets/clipper_widget.dart';
 import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -62,7 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.offAllNamed("/profileScreen");
+            },
             icon: Icon(
               Icons.person_outline,
             ),

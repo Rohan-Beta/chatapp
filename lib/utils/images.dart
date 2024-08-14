@@ -10,6 +10,9 @@ class MyAssetsImage {
   static const gallery = "$iconsPath/gallery.svg";
   static const mic = "$iconsPath/mic.svg";
   static const send = "$iconsPath/send.svg";
+  static const call = "$iconsPath/call.svg";
+  static const videoCall = "$iconsPath/videoCall.svg";
+  static const chat = "$iconsPath/chat.svg";
 
   static const splash = "$animationPath/splash.json";
   static const welcome = "$animationPath/welcome.json";
