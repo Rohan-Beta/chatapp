@@ -2,7 +2,6 @@
 
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
 import 'package:chatapp/utils/images.dart';
-import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,7 +40,15 @@ class ChatListWidget extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () {
+          onTap:
+              // ScreenHeleper.isDesktop(context)
+              //     ? () {
+              //         GlassBox(
+              //           customChild: ChatScreen(),
+              //         );
+              //       }
+              // :
+              () {
             Get.toNamed("/chatScreen");
           },
           child: ChatTileWidget(

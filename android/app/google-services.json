@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "903847094731",
+    "project_id": "chatapp-7c4dd",
+    "storage_bucket": "chatapp-7c4dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903847094731:android:3bbfcd3e9d721c53f32e4e",
+        "android_client_info": {
+          "package_name": "rohan.app.chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAquGJiy7X7YWAi6hjaDqFM593uj2P4gIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

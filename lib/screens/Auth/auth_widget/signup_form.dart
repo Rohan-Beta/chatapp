@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
@@ -11,6 +13,8 @@ class SignUpForm extends StatelessWidget {
     TextEditingController name = TextEditingController();
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
+    AuthController authController = Get.put(AuthController());
+
     return Column(
       children: [
         SizedBox(height: 40),
@@ -44,17 +48,22 @@ class SignUpForm extends StatelessWidget {
           ),
         ),
         SizedBox(height: 24),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PrimaryButton(
-              onTap: () {},
-              buttonName: "SIGNUP",
-              icon: Icons.lock_open_sharp,
-            ),
-          ],
+        Obx(
+          () => authController.isLoading.value
+              ? CircularProgressIndicator()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PrimaryButton(
+                      onTap: () {
+                        authController.signin(email.text, password.text);
+                      },
+                      buttonName: "SIGNUP",
+                      icon: Icons.lock_open_sharp,
+                    ),
+                  ],
+                ),
         ),
-        // Obx(() => authContr)
       ],
     );
   }

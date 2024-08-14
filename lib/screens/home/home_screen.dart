@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       appBar: AppBar(
         // automaticallyImplyLeading: false,
         title: Text(
@@ -188,8 +188,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         alignment: Alignment.center,
                         child: GlassBox(
-                          customChild: Lottie.asset(MyAssetsImage.welcome),
-                          // customChild: ChatScreen(),
+                          // customChild: Lottie.asset(MyAssetsImage.welcome),
+                          customChild: ChatScreen(),
                         ),
                       ),
                     )

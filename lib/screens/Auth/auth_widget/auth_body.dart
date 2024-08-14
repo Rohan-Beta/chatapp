@@ -12,7 +12,7 @@ class AuthBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RxBool isLoging = false.obs;
+    RxBool isLoging = true.obs;
 
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 5),

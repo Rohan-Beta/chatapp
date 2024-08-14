@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,8 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
+    AuthController authController = Get.put(AuthController());
+
     return Column(
       children: [
         SizedBox(height: 40),
@@ -48,19 +51,23 @@ class LoginForm extends StatelessWidget {
           ],
         ),
         SizedBox(height: 60),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PrimaryButton(
-              onTap: () {
-                Get.offAllNamed("/homeScreen");
-              },
-              buttonName: "LOGIN",
-              icon: Icons.lock_open_sharp,
-            ),
-          ],
+        Obx(
+          () => authController.isLoading.value
+              ? CircularProgressIndicator()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PrimaryButton(
+                      onTap: () {
+                        authController.login(email.text, password.text);
+                        // Get.offAllNamed("/homeScreen");
+                      },
+                      buttonName: "LOGIN",
+                      icon: Icons.lock_open_sharp,
+                    ),
+                  ],
+                ),
         ),
-        // Obx(() => authContr)
       ],
     );
   }

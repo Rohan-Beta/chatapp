@@ -91,8 +91,21 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(top: 8),
           child: Container(
+            decoration: ScreenHeleper.isDesktop(context)
+                ? BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white.withOpacity(0.15),
+                        Colors.white.withOpacity(0.05),
+                      ],
+                    ),
+                  )
+                : BoxDecoration(),
             width:
                 // ScreenHeleper.isDesktop(context)
                 //     ? MediaQuery.sizeOf(context).width * 0.6
