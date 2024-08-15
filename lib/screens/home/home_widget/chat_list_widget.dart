@@ -14,6 +14,8 @@ class ChatListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),

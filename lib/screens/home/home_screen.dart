@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       // extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: Text(
           AppTexts.appName,
           // style: Theme.of(context).textTheme.headlineSmall,

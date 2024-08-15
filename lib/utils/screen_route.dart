@@ -4,6 +4,7 @@ import 'package:chatapp/screens/Auth/auth_screen.dart';
 import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_screen.dart';
 import 'package:chatapp/screens/profile/profile_screen.dart';
+import 'package:chatapp/screens/profile/update_profile_screen.dart';
 import 'package:get/get.dart';
 
 var screenRoute = [
@@ -27,5 +28,10 @@ var screenRoute = [
     name: "/profileScreen",
     page: () => ProfileScreen(),
     transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: "/updateProfileScreen",
+    page: () => UpdateProfileScreen(),
+    transition: Transition.rightToLeft,
   ),
 ];
