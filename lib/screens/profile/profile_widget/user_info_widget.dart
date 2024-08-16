@@ -1,14 +1,17 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_if_null_operators, unnecessary_null_comparison
 
+import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ProfileController profileController = Get.put(ProfileController());
     return Container(
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -30,18 +33,24 @@ class UserInfoWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "hello",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    )
+                    Obx(
+                      () => Text(
+                        profileController.currentUser.value.name! == null
+                            ? "User"
+                            : profileController.currentUser.value.name!,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "hello@gmail.com",
-                      style: Theme.of(context).textTheme.labelLarge,
+                    Obx(
+                      () => Text(
+                        profileController.currentUser.value.email!,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
                     ),
                   ],
                 ),

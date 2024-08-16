@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
 import 'package:chatapp/screens/home/home_widget/glass_box.dart';
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       // extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -120,54 +122,54 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     // gemini ai
-                    _currentIndex == 0
-                        ? Positioned.fill(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 160, right: 40),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      FloatingActionButton(
-                                        backgroundColor: Colors.transparent,
-                                        child:
-                                            Lottie.asset(MyAssetsImage.gemini),
-                                        onPressed: () {},
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container(),
+                    // _currentIndex == 0
+                    //     ? Positioned.fill(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.end,
+                    //           children: [
+                    //             Padding(
+                    //               padding: const EdgeInsets.only(
+                    //                   bottom: 160, right: 40),
+                    //               child: Row(
+                    //                 mainAxisAlignment: MainAxisAlignment.end,
+                    //                 children: [
+                    //                   FloatingActionButton(
+                    //                     backgroundColor: Colors.transparent,
+                    //                     child:
+                    //                         Lottie.asset(MyAssetsImage.gemini),
+                    //                     onPressed: () {},
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       )
+                    //     : Container(),
                     // floating add button
-                    Positioned.fill(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 90, right: 40),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                FloatingActionButton(
-                                  backgroundColor: dPrimaryColor,
-                                  child: _currentIndex == 2
-                                      ? Icon(CupertinoIcons.phone_badge_plus)
-                                      : Icon(Icons.add),
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Positioned.fill(
+                    //   child: Column(
+                    //     mainAxisAlignment: MainAxisAlignment.end,
+                    //     children: [
+                    //       Padding(
+                    //         padding:
+                    //             const EdgeInsets.only(bottom: 90, right: 40),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.end,
+                    //           children: [
+                    //             FloatingActionButton(
+                    //               backgroundColor: dPrimaryColor,
+                    //               child: _currentIndex == 2
+                    //                   ? Icon(CupertinoIcons.phone_badge_plus)
+                    //                   : Icon(Icons.add),
+                    //               onPressed: () {},
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     Positioned(
                       bottom: 0,
                       right: 0,
