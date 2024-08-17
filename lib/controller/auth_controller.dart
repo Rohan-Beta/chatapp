@@ -6,8 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final auth = FirebaseAuth.instance;
+  final db = FirebaseFirestore.instance;
   RxBool isLoading = false.obs;
 
   // user login
@@ -25,8 +25,6 @@ class AuthController extends GetxController {
         print("No user found for that email");
       } else if (e.code == "wrong-password") {
         print("wrong password provided for that user");
-      } else {
-        print(e.code);
       }
     } catch (e) {
       print(e);
@@ -51,8 +49,6 @@ class AuthController extends GetxController {
         print("The password provided is too weak");
       } else if (e.code == "email-already-in-use") {
         print("the account already exists for the email");
-      } else {
-        print(e.code);
       }
     } catch (e) {
       print(e);

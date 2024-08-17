@@ -1,9 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:chatapp/screens/Auth/auth_screen.dart';
-import 'package:chatapp/screens/home/home_screen.dart';
-import 'package:chatapp/screens/profile/profile_screen.dart';
-import 'package:chatapp/screens/profile/update_profile_screen.dart';
 import 'package:chatapp/screens/welcome/welcome_screen.dart';
 import 'package:chatapp/utils/Themes.dart';
 import 'package:chatapp/utils/screen_route.dart';

@@ -2,17 +2,17 @@
 
 import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
-import 'package:chatapp/screens/profile/profile_widget/user_info_widget.dart';
+import 'package:chatapp/screens/user_profile/profile_widget/user_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class UserProfileScreen extends StatelessWidget {
+  const UserProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    ProfileController profileController = Get.put(ProfileController());
     AuthController authController = Get.put(AuthController());
+    ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -42,13 +42,13 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             children: [
               UserInfoWidget(),
-              // Spacer(),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     authController.logout();
-              //   },
-              //   child: Text("Logout"),
-              // ),
+              Spacer(),
+              ElevatedButton(
+                onPressed: () {
+                  authController.logout();
+                },
+                child: Text("Logout"),
+              ),
             ],
           ),
         ),

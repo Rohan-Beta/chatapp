@@ -48,7 +48,9 @@ class UserInfoWidget extends StatelessWidget {
                   children: [
                     Obx(
                       () => Text(
-                        profileController.currentUser.value.email!,
+                        profileController.currentUser.value.email! == null
+                            ? "email"
+                            : profileController.currentUser.value.email!,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ),
