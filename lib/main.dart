@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:chatapp/screens/profile/profile_screen.dart';
 import 'package:chatapp/screens/welcome/welcome_screen.dart';
 import 'package:chatapp/utils/Themes.dart';
 import 'package:chatapp/utils/screen_route.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: WelcomeScreen(),
+      home: ProfileScreen(),
       // home: SplashScreen(),
       getPages: screenRoute,
     );

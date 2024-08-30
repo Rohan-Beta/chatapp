@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Get.offAllNamed("/profileScreen");
+              Get.toNamed("/profileScreen");
             },
             icon: Icon(
               Icons.person_outline,
