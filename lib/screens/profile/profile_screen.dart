@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/widgets/primary_button.dart';
@@ -38,6 +39,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     RxString imagePath = "".obs;
 
+    AuthController authController = Get.put(AuthController());
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -50,6 +53,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Icons.arrow_back_ios,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              authController.logout();
+            },
+            icon: Icon(Icons.logout_outlined),
+          )
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -186,7 +197,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             imagePath.value,
                                             nameController.text,
                                             aboutController.text,
-                                            phoneController.text,
+                                            profileController
+                                                .currentUser.value.phoneNumber
+                                                .toString(),
+                                            profileController
+                                                .currentUser.value.email
+                                                .toString(),
                                           );
                                           isEdit.value = false;
                                         },

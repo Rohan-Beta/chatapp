@@ -36,6 +36,7 @@ class ProfileController extends GetxController {
     String name,
     String about,
     String number,
+    String email,
   ) async {
     isLoading.value = true;
 
@@ -47,6 +48,7 @@ class ProfileController extends GetxController {
         about: about,
         profileImage: imageLink,
         phoneNumber: number,
+        email: email,
       );
       await db
           .collection("users")

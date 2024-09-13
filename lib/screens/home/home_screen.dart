@@ -1,21 +1,17 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable
 
-import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
 import 'package:chatapp/screens/home/home_widget/glass_box.dart';
 import 'package:chatapp/utils/colors.dart';
-import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/utils/text.dart';
 import 'package:chatapp/widgets/bottom_nav_bar_widget.dart';
 import 'package:chatapp/widgets/clipper_widget.dart';
 import 'package:chatapp/widgets/screen_helper_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -70,7 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
+              await profileController.getUserDetails();
               Get.toNamed("/profileScreen");
             },
             icon: Icon(
