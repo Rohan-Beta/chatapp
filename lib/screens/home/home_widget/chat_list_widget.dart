@@ -22,6 +22,7 @@ class ChatListWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 6, bottom: 8),
             child: CupertinoSearchTextField(
+              onSubmitted: (value) => {},
               style: TextStyle(color: Colors.white),
               controller: _textEditingController,
               decoration: BoxDecoration(
