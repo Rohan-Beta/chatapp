@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/new_contact_tile.dart';
@@ -20,6 +21,8 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ContactController contactController = Get.put(ContactController());
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -93,57 +96,29 @@ class _ContactScreenState extends State<ContactScreen> {
                   Text("Contacts on Connectify"),
                 ],
               ),
-              Column(
-                children: [
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                  ChatTileWidget(
-                    imageUrl: MyAssetsImage.girlPic,
-                    name: "Unknown",
-                    lastChat: "last chat",
-                    lastChatTime: "time",
-                  ),
-                ],
+              Obx(
+                () => Column(
+                  children: contactController.userList
+                      .map(
+                        (e) => InkWell(
+                          onTap: () {
+                            Get.toNamed("/chatScreen");
+                          },
+                          child: ChatTileWidget(
+                            imageUrl: e.profileImage == "" ||
+                                    e.profileImage == null
+                                ? "https://cdn-icons-png.flaticon.com/512/9815/9815472.png"
+                                : e.profileImage!,
+                            name: e.name!,
+                            lastChat: e.about == "" || e.about == null
+                                ? "Hey there"
+                                : e.about!,
+                            lastChatTime: "",
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ],
           ),
