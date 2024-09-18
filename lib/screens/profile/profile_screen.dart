@@ -125,8 +125,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               BorderRadius.circular(100),
                                         ),
                                         child: profileController.currentUser
-                                                    .value.profileImage ==
-                                                ""
+                                                        .value.profileImage ==
+                                                    "" ||
+                                                profileController.currentUser
+                                                        .value.profileImage ==
+                                                    null
                                             ? Icon(Icons.image)
                                             : ClipRRect(
                                                 borderRadius:
@@ -174,13 +177,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               labelText: "Email",
                             ),
                           ),
-                          TextField(
-                            controller: phoneController,
-                            enabled: false,
-                            decoration: InputDecoration(
-                              filled: false,
-                              prefixIcon: Icon(Icons.phone),
-                              labelText: "Phone",
+                          Obx(
+                            () => TextField(
+                              controller: phoneController,
+                              enabled: isEdit.value,
+                              decoration: InputDecoration(
+                                filled: isEdit.value,
+                                prefixIcon: Icon(Icons.phone),
+                                labelText: "Phone",
+                              ),
                             ),
                           ),
                           SizedBox(height: 20),
@@ -197,9 +202,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             imagePath.value,
                                             nameController.text,
                                             aboutController.text,
-                                            profileController
-                                                .currentUser.value.phoneNumber
-                                                .toString(),
+                                            phoneController.text,
+                                            // profileController
+                                            //     .currentUser.value.phoneNumber
+                                            //     .toString(),
                                             profileController
                                                 .currentUser.value.email
                                                 .toString(),

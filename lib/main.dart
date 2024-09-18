@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
       // home: ProfileScreen(),
-      home: ContactScreen(),
+      home: AuthScreen(),
       // home: SplashScreen(),
       getPages: screenRoute,
     );

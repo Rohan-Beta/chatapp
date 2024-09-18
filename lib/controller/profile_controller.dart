@@ -46,19 +46,22 @@ class ProfileController extends GetxController {
       final updateUser = UserModel(
         name: name,
         about: about,
-        profileImage: imageLink,
+        profileImage:
+            imageLink == "" ? currentUser.value.profileImage : imageLink,
         phoneNumber: number,
         email: email,
       );
+
       await db
           .collection("users")
           .doc(auth.currentUser!.uid)
           .set(updateUser.toJson());
 
-      isLoading.value = false;
+      await getUserDetails();
     } catch (e) {
       print(e);
     }
+    isLoading.value = false;
   }
 
   Future<String> uploadFileToFirebase(String imagePath) async {
