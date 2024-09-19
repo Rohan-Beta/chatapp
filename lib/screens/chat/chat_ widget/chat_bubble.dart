@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:chatapp/utils/colors.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,9 @@ class ChatBubble extends StatelessWidget {
               ),
               padding: imageUrl == "" ? EdgeInsets.all(6) : EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: isComming == true
+                    ? Theme.of(context).colorScheme.primaryContainer
+                    : dPrimaryColor,
                 border: Border(),
                 borderRadius: BorderRadius.only(
                   topLeft: isComming ? Radius.circular(0) : Radius.circular(10),

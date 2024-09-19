@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:chatapp/controller/chat_controller.dart';
 import 'package:chatapp/controller/contact_controller.dart';
+import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/new_contact_tile.dart';
@@ -22,6 +24,8 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     ContactController contactController = Get.put(ContactController());
+
+    ChatController chatController = Get.put(ChatController());
 
     return Scaffold(
       appBar: AppBar(
@@ -102,7 +106,9 @@ class _ContactScreenState extends State<ContactScreen> {
                       .map(
                         (e) => InkWell(
                           onTap: () {
-                            // Get.toNamed("/chatScreen");
+                            Get.to(ChatScreen(userModel: e));
+                            String roomId = chatController.getRoomId(e.id!);
+                            // print(roomId);
                           },
                           child: ChatTileWidget(
                             imageUrl: e.profileImage == "" ||

@@ -19,11 +19,11 @@ var screenRoute = [
     // transition: Transition.upToDown,
     transition: Transition.downToUp,
   ),
-  GetPage(
-    name: "/chatScreen",
-    page: () => ChatScreen(),
-    transition: Transition.rightToLeft,
-  ),
+  // GetPage(
+  //   name: "/chatScreen",
+  // page: () => ChatScreen(),
+  //   transition: Transition.rightToLeft,
+  // ),
   // GetPage(
   //   name: "/updateProfileScreen",
   //   page: () => UpdateProfileScreen(),
