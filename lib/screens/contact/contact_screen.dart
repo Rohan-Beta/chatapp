@@ -102,7 +102,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       .map(
                         (e) => InkWell(
                           onTap: () {
-                            Get.toNamed("/chatScreen");
+                            // Get.toNamed("/chatScreen");
                           },
                           child: ChatTileWidget(
                             imageUrl: e.profileImage == "" ||
