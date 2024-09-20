@@ -2,6 +2,7 @@
 
 import 'package:chatapp/controller/chat_controller.dart';
 import 'package:chatapp/controller/contact_controller.dart';
+import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
 import 'package:chatapp/utils/images.dart';
@@ -24,6 +25,8 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     ContactController contactController = Get.put(ContactController());
+
+    ProfileController profileController = Get.put(ProfileController());
 
     ChatController chatController = Get.put(ChatController());
 
@@ -115,11 +118,17 @@ class _ContactScreenState extends State<ContactScreen> {
                                     e.profileImage == null
                                 ? "https://cdn-icons-png.flaticon.com/512/9815/9815472.png"
                                 : e.profileImage!,
-                            name: e.name!,
+                            name: e.name ==
+                                    profileController.currentUser.value.name
+                                ? "You"
+                                : e.name!,
                             lastChat: e.about == "" || e.about == null
                                 ? "Hey there"
                                 : e.about!,
-                            lastChatTime: "",
+                            lastChatTime: e.email ==
+                                    profileController.currentUser.value.email
+                                ? ""
+                                : "",
                           ),
                         ),
                       )

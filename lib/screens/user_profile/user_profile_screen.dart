@@ -2,12 +2,17 @@
 
 import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
+import 'package:chatapp/model/user_model.dart';
 import 'package:chatapp/screens/user_profile/profile_widget/user_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  const UserProfileScreen({super.key});
+  final UserModel userModel;
+  const UserProfileScreen({
+    super.key,
+    required this.userModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +35,7 @@ class UserProfileScreen extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Get.toNamed("/homeScreen");
+            // Get.back();
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
@@ -41,13 +47,18 @@ class UserProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              UserInfoWidget(),
+              UserInfoWidget(
+                profileImage: userModel.profileImage ??
+                    "https://cdn-icons-png.flaticon.com/512/9815/9815472.png",
+                userName: userModel.name!,
+                userEmail: userModel.email!,
+              ),
               Spacer(),
               ElevatedButton(
                 onPressed: () {
                   authController.logout();
                 },
-                child: Text("Logout"),
+                child: Text("Block"),
               ),
             ],
           ),

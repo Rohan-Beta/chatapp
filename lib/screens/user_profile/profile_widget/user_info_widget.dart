@@ -7,7 +7,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class UserInfoWidget extends StatelessWidget {
-  const UserInfoWidget({super.key});
+  final String profileImage;
+  final String userName;
+  final String userEmail;
+  const UserInfoWidget({
+    super.key,
+    required this.profileImage,
+    required this.userName,
+    required this.userEmail,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,33 +34,35 @@ class UserInfoWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(MyAssetsImage.girlPic),
+                    Container(
+                      width: 140,
+                      height: 140,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(
+                          profileImage,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Obx(
-                      () => Text(
-                        profileController.currentUser.value.name! == null
-                            ? "User"
-                            : profileController.currentUser.value.name!,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
+                    Text(
+                      userName,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Obx(
-                      () => Text(
-                        profileController.currentUser.value.email! == null
-                            ? "email"
-                            : profileController.currentUser.value.email!,
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
+                    Text(
+                      userEmail,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ],
                 ),

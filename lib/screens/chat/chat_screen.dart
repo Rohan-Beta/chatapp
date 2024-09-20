@@ -5,6 +5,7 @@ import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/user_model.dart';
 import 'package:chatapp/screens/chat/chat_%20widget/chat_bubble.dart';
+import 'package:chatapp/screens/user_profile/user_profile_screen.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,20 +30,42 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Image.asset(MyAssetsImage.boyPic),
+        leading: InkWell(
+          onTap: () {
+            Get.to(
+              UserProfileScreen(
+                userModel: widget.userModel,
+              ),
+            );
+          },
+          child: Image.asset(MyAssetsImage.boyPic),
+        ),
         backgroundColor: Colors.transparent,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.userModel.name!,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            Text(
-              widget.userModel.status ?? "status",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ],
+        title: InkWell(
+          onTap: () {
+            Get.to(
+              UserProfileScreen(
+                userModel: widget.userModel,
+              ),
+            );
+          },
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.userModel.name!,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text(
+                    widget.userModel.status ?? "status",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         actions: [
           IconButton(
@@ -99,6 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     chatController.sendMessage(
                       widget.userModel.id!,
                       messageController.text,
+                      widget.userModel,
                     );
                     messageController.clear();
                   }
