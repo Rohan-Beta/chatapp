@@ -1,3 +1,4 @@
+import 'package:chatapp/model/chat_room_model.dart';
 import 'package:chatapp/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,10 +10,12 @@ class ContactController extends GetxController {
 
   RxList<UserModel> userList = <UserModel>[].obs;
   RxBool isLoading = false.obs;
+  RxList<ChatRoomModel> chatRoomList = <ChatRoomModel>[].obs;
 
   void onInit() async {
     super.onInit();
     await getUserList();
+    await getChatRoomList();
   }
 
   Future<void> getUserList() async {
@@ -35,5 +38,26 @@ class ContactController extends GetxController {
       print(e);
     }
     isLoading.value = false;
+  }
+
+  Future<void> getChatRoomList() async {
+    List<ChatRoomModel> chatRoom = [];
+
+    await db.collection("chats").get().then(
+      (value) {
+        chatRoom = value.docs
+            .map(
+              (e) => ChatRoomModel.fromJson(
+                e.data(),
+              ),
+            )
+            .toList();
+      },
+    );
+    chatRoomList.value = chatRoom
+        .where(
+          (e) => e.id!.contains(auth.currentUser!.uid),
+        )
+        .toList();
   }
 }

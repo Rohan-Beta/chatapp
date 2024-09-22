@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_if_null_operators, unnecessary_null_comparison, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_if_null_operators, unnecessary_null_comparison, sized_box_for_whitespace, unused_local_variable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +40,13 @@ class UserInfoWidget extends StatelessWidget {
                       height: 140,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image.network(
-                          profileImage,
+                        child: CachedNetworkImage(
+                          imageUrl: profileImage,
                           fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                       ),
                     ),

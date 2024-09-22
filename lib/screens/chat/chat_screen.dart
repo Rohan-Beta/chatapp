@@ -109,7 +109,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: TextField(
                   controller: messageController,
                   decoration: InputDecoration(
-                      filled: false, hintText: "Type message ...."),
+                    filled: false,
+                    hintText: "Type message ....",
+                  ),
                 ),
               ),
               Container(

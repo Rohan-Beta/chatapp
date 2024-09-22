@@ -109,7 +109,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         (e) => InkWell(
                           onTap: () {
                             Get.to(ChatScreen(userModel: e));
-                            String roomId = chatController.getRoomId(e.id!);
+                            // String roomId = chatController.getRoomId(e.id!);
                             // print(roomId);
                           },
                           child: ChatTileWidget(

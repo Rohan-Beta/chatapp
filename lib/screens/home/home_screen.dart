@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable
 
+import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
@@ -49,6 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     ProfileController profileController = Get.put(ProfileController());
+    ContactController contactController = Get.put(ContactController());
+
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
 
