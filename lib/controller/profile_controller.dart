@@ -37,6 +37,7 @@ class ProfileController extends GetxController {
     String about,
     String number,
     String email,
+    String uid,
   ) async {
     isLoading.value = true;
 
@@ -44,13 +45,13 @@ class ProfileController extends GetxController {
       final imageLink = await uploadFileToFirebase(imageUrl);
 
       final updateUser = UserModel(
-        name: name,
-        about: about,
-        profileImage:
-            imageLink == "" ? currentUser.value.profileImage : imageLink,
-        phoneNumber: number,
-        email: email,
-      );
+          name: name,
+          about: about,
+          profileImage:
+              imageLink == "" ? currentUser.value.profileImage : imageLink,
+          phoneNumber: number,
+          email: email,
+          id: uid);
 
       await db
           .collection("users")

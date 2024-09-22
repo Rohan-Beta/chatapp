@@ -82,14 +82,17 @@ class _ChatScreenState extends State<ChatScreen> {
       floatingActionButton: Padding(
         padding: EdgeInsets.only(
             left: 10,
-            bottom: 5,
+            // bottom: 30,
             right:
                 // ScreenHeleper.isDesktop(context)
                 //     ? MediaQuery.sizeOf(context).width * 0.6
                 //     :
                 10),
         child: Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
+          padding: EdgeInsets.only(
+            left: 10,
+            right: 10,
+          ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             color: Theme.of(context).colorScheme.primaryContainer,
@@ -128,7 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   }
                 },
                 child: Container(
-                  width: 26,
+                  width: 40,
                   height: 26,
                   child: SvgPicture.asset(MyAssetsImage.send),
                 ),
@@ -165,7 +168,8 @@ class _ChatScreenState extends State<ChatScreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    // child: CircularProgressIndicator(),
+                    child: Text(""),
                   );
                 }
                 if (snapshot.hasError) {

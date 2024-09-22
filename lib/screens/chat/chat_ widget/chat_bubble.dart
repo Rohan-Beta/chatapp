@@ -91,6 +91,7 @@ class ChatBubble extends StatelessWidget {
                           SizedBox(width: 10),
                           SvgPicture.asset(
                             MyAssetsImage.chatStatus,
+                            color: Colors.blue,
                             width: 20,
                           ),
                         ],
@@ -98,6 +99,9 @@ class ChatBubble extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(
+            height: 10,
+          )
         ],
       ),
     );

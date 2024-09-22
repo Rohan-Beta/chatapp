@@ -2,7 +2,6 @@
 
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
-import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
 import 'package:chatapp/screens/home/home_widget/glass_box.dart';
 import 'package:chatapp/utils/colors.dart';

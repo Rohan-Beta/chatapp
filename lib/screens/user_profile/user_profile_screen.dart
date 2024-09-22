@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
@@ -34,8 +34,8 @@ class UserProfileScreen extends StatelessWidget {
         title: Text("Profile"),
         leading: IconButton(
           onPressed: () {
-            Get.toNamed("/homeScreen");
-            // Get.back();
+            // Get.toNamed("/homeScreen");
+            Get.back();
           },
           icon: Icon(
             Icons.arrow_back_ios_new,

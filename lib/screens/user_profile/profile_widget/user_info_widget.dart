@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_if_null_operators, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_if_null_operators, unnecessary_null_comparison, sized_box_for_whitespace
 
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/utils/images.dart';

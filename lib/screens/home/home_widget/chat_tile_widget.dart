@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ChatTileWidget extends StatelessWidget {
@@ -35,11 +36,19 @@ class ChatTileWidget extends StatelessWidget {
                   height: 50,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.network(
-                      imageUrl,
+                    child: CachedNetworkImage(
                       width: 60,
+                      imageUrl: imageUrl,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
+                    // Image.network(
+                    //   imageUrl,
+                    //   width: 60,
+                    //   fit: BoxFit.cover,
+                    // ),
                   ),
                 ),
                 SizedBox(width: 15),

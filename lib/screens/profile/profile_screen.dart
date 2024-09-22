@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/controller/auth_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
@@ -134,11 +135,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             : ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(100),
-                                                child: Image.network(
-                                                  profileController.currentUser
-                                                      .value.profileImage!,
+                                                child: CachedNetworkImage(
+                                                  imageUrl: profileController
+                                                      .currentUser
+                                                      .value
+                                                      .profileImage!,
                                                   fit: BoxFit.cover,
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
                                                 ),
+                                                // Image.network(
+                                                //   profileController.currentUser
+                                                //       .value.profileImage!,
+                                                //   fit: BoxFit.cover,
+                                                // ),
                                               ),
                                       ),
                               ),
@@ -208,6 +221,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             //     .toString(),
                                             profileController
                                                 .currentUser.value.email
+                                                .toString(),
+                                            profileController
+                                                .currentUser.value.id
                                                 .toString(),
                                           );
                                           isEdit.value = false;

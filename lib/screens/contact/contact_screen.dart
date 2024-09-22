@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, unused_local_variable
 
 import 'package:chatapp/controller/chat_controller.dart';
 import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/screens/chat/chat_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
-import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/new_contact_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
