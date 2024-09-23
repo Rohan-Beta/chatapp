@@ -12,6 +12,7 @@ class ContactController extends GetxController {
   RxBool isLoading = false.obs;
   RxList<ChatRoomModel> chatRoomList = <ChatRoomModel>[].obs;
 
+  @override
   void onInit() async {
     super.onInit();
     await getUserList();
@@ -43,7 +44,11 @@ class ContactController extends GetxController {
   Future<void> getChatRoomList() async {
     List<ChatRoomModel> chatRoom = [];
 
-    await db.collection("chats").get().then(
+    await db
+        .collection("chats")
+        .orderBy("lastMessageTimeStamp", descending: true)
+        .get()
+        .then(
       (value) {
         chatRoom = value.docs
             .map(

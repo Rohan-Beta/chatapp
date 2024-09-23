@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatListWidget extends StatelessWidget {
-  ChatListWidget({super.key});
+  const ChatListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _textEditingController = TextEditingController();
+    TextEditingController textEditingController = TextEditingController();
     ContactController contactController = Get.put(ContactController());
     ProfileController profileController = Get.put(ProfileController());
 
@@ -32,7 +32,7 @@ class ChatListWidget extends StatelessWidget {
                 //   contactController.getUserList(),
                 // },
                 style: TextStyle(color: Colors.white),
-                controller: _textEditingController,
+                controller: textEditingController,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
@@ -82,20 +82,31 @@ class ChatListWidget extends StatelessWidget {
                     .map(
                       (e) => InkWell(
                         onTap: () {
-                          Get.to(ChatScreen(userModel: e.receiver!));
+                          Get.to(
+                            ChatScreen(
+                              userModel: (e.receiver!.id ==
+                                      profileController.currentUser.value.id
+                                  ? e.sender
+                                  : e.receiver)!,
+                            ),
+                          );
                         },
                         child: ChatTileWidget(
-                          imageUrl: e.receiver!.profileImage ??
+                          imageUrl: (e.receiver!.id ==
+                                      profileController.currentUser.value.id
+                                  ? e.sender!.profileImage
+                                  : e.receiver!.profileImage) ??
                               "https://cdn-icons-png.flaticon.com/512/9815/9815472.png",
-                          name: e.receiver!.name ==
-                                  profileController.currentUser.value.name
-                              ? "You"
-                              : e.receiver!.name!,
+                          name: (e.receiver!.id ==
+                                      profileController.currentUser.value.id &&
+                                  e.receiver!.email == e.sender!.email
+                              ? "${e.sender!.name!} (You)"
+                              : e.receiver!.id ==
+                                      profileController.currentUser.value.id
+                                  ? e.sender!.name!
+                                  : e.receiver!.name)!,
                           lastChat: e.lastMessage!,
-                          lastChatTime: e.receiver!.email ==
-                                  profileController.currentUser.value.email
-                              ? ""
-                              : e.lastMessageTimeStamp!,
+                          lastChatTime: e.lastMessageTimeStamp!,
                         ),
                       ),
                     )

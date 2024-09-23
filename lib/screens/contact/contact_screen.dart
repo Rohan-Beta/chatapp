@@ -117,9 +117,9 @@ class _ContactScreenState extends State<ContactScreen> {
                                     e.profileImage == null
                                 ? "https://cdn-icons-png.flaticon.com/512/9815/9815472.png"
                                 : e.profileImage!,
-                            name: e.name ==
-                                    profileController.currentUser.value.name
-                                ? "You"
+                            name: e.email ==
+                                    profileController.currentUser.value.email
+                                ? "${e.name!} (You)"
                                 : e.name!,
                             lastChat: e.about == "" || e.about == null
                                 ? "Hey there"

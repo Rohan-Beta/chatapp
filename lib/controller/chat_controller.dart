@@ -28,6 +28,28 @@ class ChatController extends GetxController {
     return targetUserId + currUserId;
   }
 
+  UserModel getSender(UserModel currentUser, UserModel targetUser) {
+    String currentUserId = currentUser.id!;
+    String targetUserId = targetUser.id!;
+
+    if (currentUserId[0].codeUnitAt(0) > targetUserId[0].codeUnitAt(0)) {
+      return currentUser;
+    } else {
+      return targetUser;
+    }
+  }
+
+  UserModel getReceiver(UserModel currentUser, UserModel targetUser) {
+    String currentUserId = currentUser.id!;
+    String targetUserId = targetUser.id!;
+
+    if (currentUserId[0].codeUnitAt(0) > targetUserId[0].codeUnitAt(0)) {
+      return targetUser;
+    } else {
+      return currentUser;
+    }
+  }
+
   Future<void> sendMessage(
     String targetUserId,
     String message,
@@ -39,6 +61,12 @@ class ChatController extends GetxController {
     String roomId = getRoomId(targetUserId);
     DateTime timeStamp = DateTime.now();
     String timeNow = DateFormat('hh:mm a').format(timeStamp);
+
+    UserModel sender =
+        getSender(profileController.currentUser.value, targetUser);
+
+    UserModel receiver =
+        getReceiver(profileController.currentUser.value, targetUser);
 
     var newChat = ChatModel(
       id: chatId,
@@ -52,16 +80,13 @@ class ChatController extends GetxController {
       id: roomId,
       lastMessage: message,
       lastMessageTimeStamp: timeNow,
-      sender: profileController.currentUser.value,
-      receiver: targetUser,
+      sender: sender,
+      receiver: receiver,
       timeStamp: DateTime.now().toString(),
       unReadMessNo: 0,
     );
 
     try {
-      await db.collection("chats").doc(roomId).set(
-            roomdDetails.toJson(),
-          );
       await db
           .collection("chats")
           .doc(roomId)
@@ -69,6 +94,9 @@ class ChatController extends GetxController {
           .doc(chatId)
           .set(
             newChat.toJson(),
+          );
+      await db.collection("chats").doc(roomId).set(
+            roomdDetails.toJson(),
           );
     } catch (e) {
       print(e);
