@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/controller/chat_controller.dart';
+import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/user_model.dart';
@@ -27,6 +30,8 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     ChatController chatController = Get.put(ChatController());
     ProfileController profileController = Get.put(ProfileController());
+    ImagePickerController imagePickerController =
+        Get.put(ImagePickerController());
     TextEditingController messageController = TextEditingController();
 
     RxString message = "".obs;
@@ -150,37 +155,45 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
               ),
-              InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {},
-                child: Container(
-                  width: 26,
-                  height: 26,
-                  child: SvgPicture.asset(MyAssetsImage.gallery),
-                ),
-              ),
+              // image button
+
+              Obx(() => chatController.selectedImagePath.value == ""
+                      ? InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            chatController.selectedImagePath.value =
+                                await imagePickerController.pickImage();
+                          },
+                          child: Container(
+                            width: 40,
+                            height: 26,
+                            child: SvgPicture.asset(MyAssetsImage.gallery),
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            chatController.selectedImagePath.value = "";
+                          },
+                          icon: Icon(Icons.close),
+                        )
+
+                  // SizedBox(),
+
+                  ),
               SizedBox(width: 10),
               Obx(
-                () => message.value == ""
-                    // mic button
-                    ? InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {},
-                        child: Container(
-                          width: 40,
-                          height: 26,
-                          child: SvgPicture.asset(MyAssetsImage.mic),
-                        ),
-                      )
+                () => message.value != "" ||
+                        chatController.selectedImagePath.value != ""
                     // send button
-                    : InkWell(
+                    ? InkWell(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
                           if (messageController.text.isNotEmpty &&
-                              messageController.text != " ") {
+                                  messageController.text != " " ||
+                              chatController
+                                  .selectedImagePath.value.isNotEmpty) {
                             chatController.sendMessage(
                               widget.userModel.id!,
                               messageController.text,
@@ -188,12 +201,25 @@ class _ChatScreenState extends State<ChatScreen> {
                             );
                             messageController.clear();
                             message.value = "";
+                            // chatController.selectedImagePath.value = "";
                           }
                         },
                         child: Container(
                           width: 40,
                           height: 26,
                           child: SvgPicture.asset(MyAssetsImage.send),
+                        ),
+                      )
+                    // mic button
+
+                    : InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () {},
+                        child: Container(
+                          width: 40,
+                          height: 26,
+                          child: SvgPicture.asset(MyAssetsImage.mic),
                         ),
                       ),
               ),
@@ -224,49 +250,105 @@ class _ChatScreenState extends State<ChatScreen> {
                 //     ? MediaQuery.sizeOf(context).width * 0.6
                 //     :
                 MediaQuery.sizeOf(context).width,
-            child: StreamBuilder<List<ChatModel>>(
-              stream: chatController.getMessages(widget.userModel.id!),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    // child: CircularProgressIndicator(),
-                    child: Text(""),
-                  );
-                }
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(
-                      "Error ${snapshot.error}",
-                    ),
-                  );
-                }
-                if (snapshot.data == null) {
-                  return Center(
-                    child: Text("No Messages"),
-                  );
-                } else {
-                  return ListView.builder(
-                    reverse: true,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      DateTime timeStamp =
-                          DateTime.parse(snapshot.data![index].timeStamp!);
+            child: Column(
+              children: [
+                Expanded(
+                  child: Stack(
+                    children: [
+                      StreamBuilder<List<ChatModel>>(
+                        stream:
+                            chatController.getMessages(widget.userModel.id!),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              // child: CircularProgressIndicator(),
+                              child: Text(""),
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text(
+                                "Error ${snapshot.error}",
+                              ),
+                            );
+                          }
+                          if (snapshot.data == null) {
+                            return Center(
+                              child: Text("No Messages"),
+                            );
+                          } else {
+                            return ListView.builder(
+                              reverse: true,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                DateTime timeStamp = DateTime.parse(
+                                    snapshot.data![index].timeStamp!);
 
-                      String formattedTime =
-                          DateFormat('hh:mm a').format(timeStamp);
+                                String formattedTime =
+                                    DateFormat('hh:mm a').format(timeStamp);
 
-                      return ChatBubble(
-                        message: snapshot.data![index].message!,
-                        isComming: snapshot.data![index].senderId !=
-                            profileController.currentUser.value.id,
-                        time: formattedTime,
-                        status: "read",
-                        imageUrl: snapshot.data![index].imageUrl ?? "",
-                      );
-                    },
-                  );
-                }
-              },
+                                return ChatBubble(
+                                  message: snapshot.data![index].message!,
+                                  isComming: snapshot.data![index].senderId !=
+                                      profileController.currentUser.value.id,
+                                  time: formattedTime,
+                                  status: "read",
+                                  imageUrl:
+                                      snapshot.data![index].imageUrl ?? "",
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                      Obx(
+                        () => chatController.selectedImagePath.value != ""
+                            ? Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: FileImage(
+                                              File(chatController
+                                                  .selectedImagePath.value),
+                                            ),
+                                            fit: BoxFit.contain,
+                                          ),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primaryContainer,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        height: 500,
+                                      ),
+                                      // Positioned(
+                                      //   right: 0,
+                                      //   child: IconButton(
+                                      //     onPressed: () {
+                                      //       chatController
+                                      //           .selectedImagePath.value = "";
+                                      //     },
+                                      //     icon: Icon(Icons.close),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),

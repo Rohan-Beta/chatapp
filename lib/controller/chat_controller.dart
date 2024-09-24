@@ -18,6 +18,7 @@ class ChatController extends GetxController {
   var uuid = Uuid();
 
   ProfileController profileController = Get.put(ProfileController());
+  RxString selectedImagePath = "".obs;
 
   String getRoomId(String targetUserId) {
     String currUserId = auth.currentUser!.uid;
