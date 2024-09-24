@@ -46,7 +46,7 @@ class ContactController extends GetxController {
 
     await db
         .collection("chats")
-        .orderBy("lastMessageTimeStamp", descending: true)
+        .orderBy("timeStamp", descending: true)
         .get()
         .then(
       (value) {

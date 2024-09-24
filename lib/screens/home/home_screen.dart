@@ -141,6 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       FloatingActionButton(
+                                        splashColor: Colors.transparent,
                                         backgroundColor: Colors.transparent,
                                         child:
                                             Lottie.asset(MyAssetsImage.gemini),
@@ -165,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 FloatingActionButton(
+                                  splashColor: Colors.transparent,
                                   backgroundColor: dPrimaryColor,
                                   child: _currentIndex == 2
                                       ? Icon(CupertinoIcons.phone_badge_plus)

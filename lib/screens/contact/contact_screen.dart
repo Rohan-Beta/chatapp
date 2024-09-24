@@ -107,6 +107,8 @@ class _ContactScreenState extends State<ContactScreen> {
                   children: contactController.userList
                       .map(
                         (e) => InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onTap: () {
                             Get.to(ChatScreen(userModel: e));
                             // String roomId = chatController.getRoomId(e.id!);

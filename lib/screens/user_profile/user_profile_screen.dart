@@ -51,7 +51,7 @@ class UserProfileScreen extends StatelessWidget {
                 profileImage: userModel.profileImage ??
                     "https://cdn-icons-png.flaticon.com/512/9815/9815472.png",
                 userName: userModel.name!,
-                userEmail: userModel.email!,
+                userEmail: userModel.about!,
               ),
               Spacer(),
               ElevatedButton(

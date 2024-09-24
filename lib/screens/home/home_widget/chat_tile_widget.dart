@@ -29,48 +29,57 @@ class ChatTileWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: CachedNetworkImage(
-                      width: 60,
-                      imageUrl: imageUrl,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+            Expanded(
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: CachedNetworkImage(
+                        width: 60,
+                        imageUrl: imageUrl,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                      // Image.network(
+                      //   imageUrl,
+                      //   width: 60,
+                      //   fit: BoxFit.cover,
+                      // ),
                     ),
-                    // Image.network(
-                    //   imageUrl,
-                    //   width: 60,
-                    //   fit: BoxFit.cover,
-                    // ),
                   ),
-                ),
-                SizedBox(width: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.bodyLarge,
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          lastChat,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      lastChat,
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-            Text(
-              lastChatTime,
-              style: Theme.of(context).textTheme.labelMedium,
+            Padding(
+              padding: const EdgeInsets.only(left: 40, top: 30),
+              child: Text(
+                lastChatTime,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
             ),
           ],
         ),

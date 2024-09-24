@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/controller/chat_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/chat_model.dart';
@@ -28,9 +29,13 @@ class _ChatScreenState extends State<ChatScreen> {
     ProfileController profileController = Get.put(ProfileController());
     TextEditingController messageController = TextEditingController();
 
+    RxString message = "".obs;
+
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () {
             Get.to(
               UserProfileScreen(
@@ -38,10 +43,30 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             );
           },
-          child: Image.asset(MyAssetsImage.boyPic),
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              width: 40,
+              height: 40,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: CachedNetworkImage(
+                  imageUrl: widget.userModel.profileImage == null ||
+                          widget.userModel.profileImage == ""
+                      ? "https://cdn-icons-png.flaticon.com/512/9815/9815472.png"
+                      : widget.userModel.profileImage!,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+            ),
+          ),
         ),
         backgroundColor: Colors.transparent,
         title: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () {
             Get.to(
               UserProfileScreen(
@@ -100,13 +125,24 @@ class _ChatScreenState extends State<ChatScreen> {
           child: Row(
             children: [
               Container(
-                width: 26,
-                height: 26,
-                child: SvgPicture.asset(MyAssetsImage.mic),
+                // width: 26,
+                // height: 26,
+                child: IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.emoji_emotions_outlined,
+                    color: Colors.grey,
+                  ),
+                ),
               ),
               SizedBox(width: 10),
               Expanded(
                 child: TextField(
+                  onChanged: (value) {
+                    message.value = value;
+                  },
                   controller: messageController,
                   decoration: InputDecoration(
                     filled: false,
@@ -114,29 +150,52 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
               ),
-              Container(
-                width: 26,
-                height: 26,
-                child: SvgPicture.asset(MyAssetsImage.gallery),
+              InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () {},
+                child: Container(
+                  width: 26,
+                  height: 26,
+                  child: SvgPicture.asset(MyAssetsImage.gallery),
+                ),
               ),
               SizedBox(width: 10),
-              InkWell(
-                onTap: () {
-                  if (messageController.text.isNotEmpty &&
-                      messageController.text != " ") {
-                    chatController.sendMessage(
-                      widget.userModel.id!,
-                      messageController.text,
-                      widget.userModel,
-                    );
-                    messageController.clear();
-                  }
-                },
-                child: Container(
-                  width: 40,
-                  height: 26,
-                  child: SvgPicture.asset(MyAssetsImage.send),
-                ),
+              Obx(
+                () => message.value == ""
+                    // mic button
+                    ? InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () {},
+                        child: Container(
+                          width: 40,
+                          height: 26,
+                          child: SvgPicture.asset(MyAssetsImage.mic),
+                        ),
+                      )
+                    // send button
+                    : InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () {
+                          if (messageController.text.isNotEmpty &&
+                              messageController.text != " ") {
+                            chatController.sendMessage(
+                              widget.userModel.id!,
+                              messageController.text,
+                              widget.userModel,
+                            );
+                            messageController.clear();
+                            message.value = "";
+                          }
+                        },
+                        child: Container(
+                          width: 40,
+                          height: 26,
+                          child: SvgPicture.asset(MyAssetsImage.send),
+                        ),
+                      ),
               ),
             ],
           ),
