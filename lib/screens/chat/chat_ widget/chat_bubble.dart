@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/utils/colors.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/screen_helper_widget.dart';
@@ -59,12 +60,19 @@ class ChatBubble extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(imageUrl),
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrl,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 5, right: 5, top: 10),
-                          child: Text(message),
+                          padding: EdgeInsets.only(
+                              left: 5, right: 5, top: message == "" ? 0 : 10),
+                          child: message == "" ? Container() : Text(message),
                         ),
                       ],
                     ),
@@ -91,7 +99,7 @@ class ChatBubble extends StatelessWidget {
                           SizedBox(width: 10),
                           SvgPicture.asset(
                             MyAssetsImage.chatStatus,
-                            color: Colors.blue,
+                            // color: Colors.blue,
                             width: 20,
                           ),
                         ],

@@ -157,30 +157,30 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               // image button
 
-              Obx(() => chatController.selectedImagePath.value == ""
-                      ? InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            chatController.selectedImagePath.value =
-                                await imagePickerController.pickImage();
-                          },
-                          child: Container(
-                            width: 40,
-                            height: 26,
-                            child: SvgPicture.asset(MyAssetsImage.gallery),
-                          ),
-                        )
-                      : IconButton(
-                          onPressed: () {
-                            chatController.selectedImagePath.value = "";
-                          },
-                          icon: Icon(Icons.close),
-                        )
+              Obx(
+                () => chatController.selectedImagePath.value == ""
+                    ? InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          chatController.selectedImagePath.value =
+                              await imagePickerController.pickImage();
+                        },
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          child: SvgPicture.asset(MyAssetsImage.gallery),
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          chatController.selectedImagePath.value = "";
+                        },
+                        icon: Icon(Icons.close),
+                      ),
 
-                  // SizedBox(),
-
-                  ),
+                // SizedBox(),
+              ),
               SizedBox(width: 10),
               Obx(
                 () => message.value != "" ||
@@ -201,13 +201,14 @@ class _ChatScreenState extends State<ChatScreen> {
                             );
                             messageController.clear();
                             message.value = "";
-                            // chatController.selectedImagePath.value = "";
                           }
                         },
                         child: Container(
-                          width: 40,
+                          width: 26,
                           height: 26,
-                          child: SvgPicture.asset(MyAssetsImage.send),
+                          child: chatController.isLoading.value
+                              ? CircularProgressIndicator()
+                              : SvgPicture.asset(MyAssetsImage.send),
                         ),
                       )
                     // mic button
@@ -217,7 +218,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         highlightColor: Colors.transparent,
                         onTap: () {},
                         child: Container(
-                          width: 40,
+                          width: 26,
                           height: 26,
                           child: SvgPicture.asset(MyAssetsImage.mic),
                         ),
