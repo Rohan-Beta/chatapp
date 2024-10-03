@@ -4,6 +4,7 @@ import 'package:chatapp/controller/chat_controller.dart';
 import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/screens/chat/chat_screen.dart';
+import 'package:chatapp/screens/group/new_group.dart';
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
 import 'package:chatapp/widgets/new_contact_tile.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,7 +95,9 @@ class _ContactScreenState extends State<ContactScreen> {
               NewContactTile(
                 btnName: 'New Group',
                 icon: Icons.group_add,
-                onTap: () {},
+                onTap: () {
+                  Get.to(NewGroup());
+                },
               ),
               SizedBox(height: 20),
               Row(

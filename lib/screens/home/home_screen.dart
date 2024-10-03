@@ -3,6 +3,7 @@
 import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
+import 'package:chatapp/screens/group/group_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
 import 'package:chatapp/screens/home/home_widget/glass_box.dart';
 import 'package:chatapp/utils/colors.dart';
@@ -111,9 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           controller: pageController,
                           children: [
                             ChatListWidget(),
-                            ListTile(
-                              title: Text("group"),
-                            ),
+                            GroupScreen(),
                             ListTile(
                               title: Text("call"),
                             ),

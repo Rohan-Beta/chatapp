@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
+import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/chat_room_model.dart';
@@ -18,6 +19,7 @@ class ChatController extends GetxController {
   var uuid = Uuid();
 
   ProfileController profileController = Get.put(ProfileController());
+  ContactController contactController = Get.put(ContactController());
   RxString selectedImagePath = "".obs;
 
   String getRoomId(String targetUserId) {
@@ -109,6 +111,7 @@ class ChatController extends GetxController {
       await db.collection("chats").doc(roomId).set(
             roomdDetails.toJson(),
           );
+      await contactController.saveContact(targetUser);
     } catch (e) {
       print(e);
     }
