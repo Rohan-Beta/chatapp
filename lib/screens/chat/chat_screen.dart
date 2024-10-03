@@ -15,6 +15,7 @@ import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -162,10 +163,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     ? InkWell(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onTap: () async {
-                          // chatController.selectedImagePath.value =
-                          //     await imagePickerController.pickImage();
-
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          child: SvgPicture.asset(MyAssetsImage.gallery),
+                        ),
+                        onTap: () {
                           Get.bottomSheet(
                             Container(
                               height: 150,
@@ -185,7 +188,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                   // gallery button
 
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () async {
+                                      chatController.selectedImagePath.value =
+                                          await imagePickerController
+                                              .pickImage(ImageSource.gallery);
+                                      Get.back();
+                                    },
                                     child: Container(
                                       height: 70,
                                       width: 70,
@@ -201,10 +209,16 @@ class _ChatScreenState extends State<ChatScreen> {
                                       ),
                                     ),
                                   ),
-                                  // camera photo
+                                  // camera button
 
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () async {
+                                      chatController.selectedImagePath.value =
+                                          await imagePickerController
+                                              .pickImage(ImageSource.camera);
+
+                                      Get.back();
+                                    },
                                     child: Container(
                                       height: 70,
                                       width: 70,
@@ -220,6 +234,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                       ),
                                     ),
                                   ),
+                                  // video button
+
                                   InkWell(
                                     onTap: () {},
                                     child: Container(
@@ -242,11 +258,6 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           );
                         },
-                        child: Container(
-                          width: 26,
-                          height: 26,
-                          child: SvgPicture.asset(MyAssetsImage.gallery),
-                        ),
                       )
                     : IconButton(
                         onPressed: () {

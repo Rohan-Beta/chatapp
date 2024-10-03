@@ -9,6 +9,7 @@ import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -90,7 +91,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         onTap: () async {
                                           imagePath.value =
                                               await imagePickerController
-                                                  .pickImage();
+                                                  .pickImage(
+                                                      ImageSource.gallery);
                                         },
                                         child: Container(
                                           height: 200,
