@@ -27,15 +27,23 @@ class NewGroupScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (groupController.groupMembers.isEmpty) {
-            Get.snackbar("Error", "please select atleast one member");
-          } else {
-            Get.to(GroupTitleScreen());
-          }
-        },
-        child: Icon(Icons.arrow_forward),
+      floatingActionButton: Obx(
+        () => FloatingActionButton(
+          backgroundColor: groupController.groupMembers.isEmpty
+              ? Colors.grey
+              : Theme.of(context).colorScheme.primary,
+          onPressed: () {
+            if (groupController.groupMembers.isEmpty) {
+              Get.snackbar("Error", "please select atleast one member");
+            } else {
+              Get.to(GroupTitleScreen());
+            }
+          },
+          child: Icon(
+            Icons.arrow_forward,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
