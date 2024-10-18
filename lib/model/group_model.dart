@@ -47,8 +47,12 @@ class GroupModel {
     description = json["description"];
     profileUrl = json["profileUrl"];
 
-    if (json["members" is Map]) {
-      json["members"] == null ? null : UserModel.fromJson(json["members"]);
+    if (json["members"] != null) {
+      members = List<UserModel>.from(
+        json["members"].map((memberJson) => UserModel.fromJson(memberJson)),
+      );
+    } else {
+      members = [];
     }
 
     //

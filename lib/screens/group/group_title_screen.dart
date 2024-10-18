@@ -1,9 +1,13 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unrelated_type_equality_checks
+
+import 'dart:io';
 
 import 'package:chatapp/controller/group_controller.dart';
+import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/screens/home/home_widget/chat_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class GroupTitleScreen extends StatefulWidget {
   const GroupTitleScreen({super.key});
@@ -16,6 +20,13 @@ class _GroupTitleScreenState extends State<GroupTitleScreen> {
   @override
   Widget build(BuildContext context) {
     GroupController groupController = Get.put(GroupController());
+    ImagePickerController imagePickerController =
+        Get.put(ImagePickerController());
+
+    RxString imagePath = "".obs;
+
+    RxString groupNameController = "".obs;
+    RxString groupInfoController = "".obs;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,12 +39,24 @@ class _GroupTitleScreenState extends State<GroupTitleScreen> {
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: () {},
-        child: Icon(
-          Icons.done,
-          color: Theme.of(context).colorScheme.onBackground,
+      floatingActionButton: Obx(
+        () => FloatingActionButton(
+          backgroundColor:
+              groupNameController.isEmpty && groupInfoController.isEmpty
+                  ? Colors.grey
+                  : Theme.of(context).colorScheme.primary,
+          onPressed: () {
+            groupNameController.isEmpty && groupInfoController.isEmpty
+                ? Get.snackbar("Error", "Please enter group name and about")
+                : groupController.createGroup(groupNameController.value,
+                    groupInfoController.value, imagePath.value);
+          },
+          child: groupController.isLoading.value == true
+              ? CircularProgressIndicator()
+              : Icon(
+                  Icons.done,
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
         ),
       ),
       body: SafeArea(
@@ -51,16 +74,36 @@ class _GroupTitleScreenState extends State<GroupTitleScreen> {
                   Expanded(
                     child: Column(
                       children: [
-                        Container(
-                          height: 150,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius: BorderRadius.circular(100),
+                        Obx(
+                          () => InkWell(
+                            onTap: () async {
+                              imagePath.value = await imagePickerController
+                                  .pickImage(ImageSource.gallery);
+                            },
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: imagePath == ""
+                                  ? Icon(Icons.group)
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.file(
+                                        File(imagePath.value),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                            ),
                           ),
                         ),
                         SizedBox(height: 20),
                         TextFormField(
+                          onChanged: (value) {
+                            groupNameController.value = value;
+                          },
                           decoration: InputDecoration(
                             hintText: "Group Name",
                             prefix: Icon(Icons.group),
@@ -68,6 +111,9 @@ class _GroupTitleScreenState extends State<GroupTitleScreen> {
                         ),
                         SizedBox(height: 10),
                         TextFormField(
+                          onChanged: (value) {
+                            groupInfoController.value = value;
+                          },
                           decoration: InputDecoration(
                             hintText: "Group Description",
                             prefix: Icon(Icons.info),
