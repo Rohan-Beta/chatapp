@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatapp/controller/profile_controller.dart';
+import 'package:chatapp/model/group_model.dart';
 import 'package:chatapp/model/user_model.dart';
 import 'package:chatapp/screens/home/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,8 +16,15 @@ class GroupController extends GetxController {
   var uid = Uuid();
 
   ProfileController profileController = Get.put(ProfileController());
+  RxList<GroupModel> groupList = <GroupModel>[].obs;
 
   RxBool isLoading = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    getGroup();
+  }
 
   void selectMembers(UserModel userModel) {
     if (groupMembers.contains(userModel)) {
@@ -46,7 +54,7 @@ class GroupController extends GetxController {
           "timeStamp": DateTime.now().toString(),
         },
       );
-
+      getGroup();
       Get.snackbar("Group Created", "Group Created Successfully");
       Get.offAll(HomeScreen());
 
@@ -54,5 +62,27 @@ class GroupController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void> getGroup() async {
+    isLoading.value = true;
+
+    List<GroupModel> tempGroup = [];
+    await db.collection("groups").get().then(
+          (value) => tempGroup = value.docs
+              .map(
+                (e) => GroupModel.fromJson(e.data()),
+              )
+              .toList(),
+        );
+    groupList.clear();
+    groupList.value = tempGroup
+        .where(
+          (e) => e.members!.any(
+            (element) => element.id == auth.currentUser!.uid,
+          ),
+        )
+        .toList();
+    isLoading.value = false;
   }
 }

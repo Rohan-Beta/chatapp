@@ -42,17 +42,19 @@ class _GroupTitleScreenState extends State<GroupTitleScreen> {
       floatingActionButton: Obx(
         () => FloatingActionButton(
           backgroundColor:
-              groupNameController.isEmpty && groupInfoController.isEmpty
+              groupNameController.isEmpty || groupInfoController.isEmpty
                   ? Colors.grey
                   : Theme.of(context).colorScheme.primary,
           onPressed: () {
-            groupNameController.isEmpty && groupInfoController.isEmpty
+            groupNameController.isEmpty || groupInfoController.isEmpty
                 ? Get.snackbar("Error", "Please enter group name and about")
                 : groupController.createGroup(groupNameController.value,
                     groupInfoController.value, imagePath.value);
           },
           child: groupController.isLoading.value == true
-              ? CircularProgressIndicator()
+              ? CircularProgressIndicator(
+                  color: Colors.white,
+                )
               : Icon(
                   Icons.done,
                   color: Theme.of(context).colorScheme.onBackground,
@@ -106,7 +108,7 @@ class _GroupTitleScreenState extends State<GroupTitleScreen> {
                           },
                           decoration: InputDecoration(
                             hintText: "Group Name",
-                            prefix: Icon(Icons.group),
+                            prefixIcon: Icon(Icons.group),
                           ),
                         ),
                         SizedBox(height: 10),
@@ -116,7 +118,7 @@ class _GroupTitleScreenState extends State<GroupTitleScreen> {
                           },
                           decoration: InputDecoration(
                             hintText: "Group Description",
-                            prefix: Icon(Icons.info),
+                            prefixIcon: Icon(Icons.info),
                           ),
                         ),
                         SizedBox(height: 10),

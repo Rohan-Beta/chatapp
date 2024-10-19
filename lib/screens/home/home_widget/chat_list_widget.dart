@@ -50,26 +50,6 @@ class ChatListWidget extends StatelessWidget {
               ),
             ),
           ),
-          // InkWell(
-          //   onTap:
-          //       // ScreenHeleper.isDesktop(context)
-          //       //     ? () {
-          //       //         GlassBox(
-          //       //           customChild: ChatScreen(),
-          //       //         );
-          //       //       }
-          //       // :
-          //       () {
-          //     Get.toNamed("/chatScreen");
-          //   },
-          //   child: ChatTileWidget(
-          //     imageUrl: "https://cdn-icons-png.flaticon.com/512/9815/9815472.png",
-          //     name: "Unknown",
-          //     lastChat: "last chat",
-          //     lastChatTime: "time",
-          //   ),
-          // ),
-
           RefreshIndicator(
             onRefresh: () {
               return contactController.getChatRoomList();

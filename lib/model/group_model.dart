@@ -81,7 +81,6 @@ class GroupModel {
     }
 
     //
-    _data["members"] = members;
     _data["createdAt"] = createdAt;
     _data["status"] = status;
     _data["lastMessage"] = lastMessage;
