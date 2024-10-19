@@ -4,6 +4,7 @@ import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/group_model.dart';
 import 'package:chatapp/model/user_model.dart';
 import 'package:chatapp/screens/home/home_screen.dart';
+import 'package:chatapp/utils/toast_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -55,7 +56,7 @@ class GroupController extends GetxController {
         },
       );
       getGroup();
-      Get.snackbar("Group Created", "Group Created Successfully");
+      successMessage("Group Created");
       Get.offAll(HomeScreen());
 
       isLoading.value = false;
