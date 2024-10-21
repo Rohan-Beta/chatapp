@@ -142,4 +142,16 @@ class GroupController extends GetxController {
               .toList(),
         );
   }
+
+  Future<void> addMemberToGroup(String groupId, UserModel userModel) async {
+    isLoading.value = true;
+
+    await db.collection("groups").doc(groupId).update(
+      {
+        "members": FieldValue.arrayUnion([userModel.toJson()]),
+      },
+    );
+    getGroup();
+    isLoading.value = false;
+  }
 }

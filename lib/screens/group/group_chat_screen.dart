@@ -3,13 +3,13 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chatapp/controller/chat_controller.dart';
 import 'package:chatapp/controller/group_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/group_model.dart';
 import 'package:chatapp/screens/chat/chat_%20widget/chat_bubble.dart';
+import 'package:chatapp/screens/group/group_info_screen.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,13 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          onTap: () {},
+          onTap: () {
+            Get.to(
+              GroupInfoScreen(
+                groupModel: widget.groupModel,
+              ),
+            );
+          },
           child: Padding(
             padding: const EdgeInsets.all(5),
             child: Container(
@@ -68,11 +74,11 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () {
-            // Get.to(
-            //   UserProfileScreen(
-            //     userModel: widget.userModel,
-            //   ),
-            // );
+            Get.to(
+              GroupInfoScreen(
+                groupModel: widget.groupModel,
+              ),
+            );
           },
           child: Row(
             children: [

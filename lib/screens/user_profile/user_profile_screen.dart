@@ -34,7 +34,6 @@ class UserProfileScreen extends StatelessWidget {
         title: Text("Profile"),
         leading: IconButton(
           onPressed: () {
-            // Get.toNamed("/homeScreen");
             Get.back();
           },
           icon: Icon(
