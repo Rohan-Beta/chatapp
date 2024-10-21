@@ -29,7 +29,6 @@ class GroupChatScreen extends StatefulWidget {
 class _GroupChatScreenState extends State<GroupChatScreen> {
   @override
   Widget build(BuildContext context) {
-    ChatController chatController = Get.put(ChatController());
     ProfileController profileController = Get.put(ProfileController());
     GroupController groupController = Get.put(GroupController());
     ImagePickerController imagePickerController =
@@ -154,7 +153,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               // image button
 
               Obx(
-                () => chatController.selectedImagePath.value == ""
+                () => groupController.selectedImagePath.value == ""
                     ? InkWell(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
@@ -184,7 +183,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
 
                                   InkWell(
                                     onTap: () async {
-                                      chatController.selectedImagePath.value =
+                                      groupController.selectedImagePath.value =
                                           await imagePickerController
                                               .pickImage(ImageSource.gallery);
                                       Get.back();
@@ -208,7 +207,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
 
                                   InkWell(
                                     onTap: () async {
-                                      chatController.selectedImagePath.value =
+                                      groupController.selectedImagePath.value =
                                           await imagePickerController
                                               .pickImage(ImageSource.camera);
 
@@ -256,7 +255,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                       )
                     : IconButton(
                         onPressed: () {
-                          chatController.selectedImagePath.value = "";
+                          groupController.selectedImagePath.value = "";
                         },
                         icon: Icon(Icons.close),
                       ),
@@ -266,7 +265,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               SizedBox(width: 10),
               Obx(
                 () => message.value != "" ||
-                        chatController.selectedImagePath.value != ""
+                        groupController.selectedImagePath.value != ""
                     // send button
                     ? InkWell(
                         splashColor: Colors.transparent,
@@ -274,7 +273,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                         onTap: () {
                           if (messageController.text.isNotEmpty &&
                                   messageController.text != " " ||
-                              chatController
+                              groupController
                                   .selectedImagePath.value.isNotEmpty) {
                             groupController.sendGroupMessage(
                               messageController.text,
@@ -288,7 +287,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                         child: Container(
                           width: 26,
                           height: 26,
-                          child: chatController.isLoading.value
+                          child: groupController.isLoading.value
                               ? CircularProgressIndicator()
                               : SvgPicture.asset(MyAssetsImage.send),
                         ),
@@ -386,7 +385,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                         },
                       ),
                       Obx(
-                        () => chatController.selectedImagePath.value != ""
+                        () => groupController.selectedImagePath.value != ""
                             ? Positioned(
                                 bottom: 0,
                                 left: 0,
@@ -399,7 +398,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: FileImage(
-                                              File(chatController
+                                              File(groupController
                                                   .selectedImagePath.value),
                                             ),
                                             fit: BoxFit.contain,
