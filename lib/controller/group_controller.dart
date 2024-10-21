@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatapp/controller/profile_controller.dart';
+import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/group_model.dart';
 import 'package:chatapp/model/user_model.dart';
 import 'package:chatapp/screens/home/home_screen.dart';
@@ -20,6 +21,7 @@ class GroupController extends GetxController {
   RxList<GroupModel> groupList = <GroupModel>[].obs;
 
   RxBool isLoading = false.obs;
+  RxString selectedImagePath = "".obs;
 
   @override
   void onInit() {
@@ -39,6 +41,16 @@ class GroupController extends GetxController {
       String groupName, String groupInfo, String imagePath) async {
     isLoading.value = true;
     String groupId = uid.v6();
+
+    groupMembers.add(
+      UserModel(
+        id: auth.currentUser!.uid,
+        name: profileController.currentUser.value.name,
+        profileImage: profileController.currentUser.value.profileImage,
+        email: profileController.currentUser.value.email,
+        role: "admin",
+      ),
+    );
 
     try {
       String imageUrl = await profileController.uploadFileToFirebase(imagePath);
@@ -85,5 +97,45 @@ class GroupController extends GetxController {
         )
         .toList();
     isLoading.value = false;
+  }
+
+  Future<void> sendGroupMessage(
+      String message, String groupId, String imagePath) async {
+    var chatId = uid.v6();
+    String imageUrl = await profileController.uploadFileToFirebase(imagePath);
+
+    var newGroupChat = ChatModel(
+      id: chatId,
+      message: message,
+      imageUrl: imageUrl,
+      senderId: auth.currentUser!.uid,
+      senderName: profileController.currentUser.value.name,
+      timeStamp: DateTime.now().toString(),
+    );
+
+    await db
+        .collection("groups")
+        .doc(groupId)
+        .collection("messages")
+        .doc(chatId)
+        .set(
+          newGroupChat.toJson(),
+        );
+  }
+
+  Stream<List<ChatModel>> getGroupMessages(String groupId) {
+    return db
+        .collection("groups")
+        .doc(groupId)
+        .collection("messages")
+        .orderBy("timeStamp", descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => ChatModel.fromJson(doc.data()),
+              )
+              .toList(),
+        );
   }
 }

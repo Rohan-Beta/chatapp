@@ -4,13 +4,12 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/controller/chat_controller.dart';
+import 'package:chatapp/controller/group_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/group_model.dart';
-import 'package:chatapp/model/user_model.dart';
 import 'package:chatapp/screens/chat/chat_%20widget/chat_bubble.dart';
-import 'package:chatapp/screens/user_profile/user_profile_screen.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:chatapp/widgets/screen_helper_widget.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +31,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   Widget build(BuildContext context) {
     ChatController chatController = Get.put(ChatController());
     ProfileController profileController = Get.put(ProfileController());
+    GroupController groupController = Get.put(GroupController());
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
     TextEditingController messageController = TextEditingController();
@@ -272,18 +272,18 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
-                          // if (messageController.text.isNotEmpty &&
-                          //         messageController.text != " " ||
-                          //     chatController
-                          //         .selectedImagePath.value.isNotEmpty) {
-                          //   chatController.sendMessage(
-                          //     widget.groupModel.id!,
-                          //     messageController.text,
-                          //     widget.groupModel,
-                          //   );
-                          //   messageController.clear();
-                          //   message.value = "";
-                          // }
+                          if (messageController.text.isNotEmpty &&
+                                  messageController.text != " " ||
+                              chatController
+                                  .selectedImagePath.value.isNotEmpty) {
+                            groupController.sendGroupMessage(
+                              messageController.text,
+                              widget.groupModel.id!,
+                              "", // imagepath
+                            );
+                            messageController.clear();
+                            message.value = "";
+                          }
                         },
                         child: Container(
                           width: 26,
@@ -338,53 +338,53 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                 Expanded(
                   child: Stack(
                     children: [
-                      // StreamBuilder<List<ChatModel>>(
-                      //   stream:
-                      //       chatController.getMessages(widget.userModel.id!),
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.waiting) {
-                      //       return Center(
-                      //         // child: CircularProgressIndicator(),
-                      //         child: Text(""),
-                      //       );
-                      //     }
-                      //     if (snapshot.hasError) {
-                      //       return Center(
-                      //         child: Text(
-                      //           "Error ${snapshot.error}",
-                      //         ),
-                      //       );
-                      //     }
-                      //     if (snapshot.data == null) {
-                      //       return Center(
-                      //         child: Text("No Messages"),
-                      //       );
-                      //     } else {
-                      //       return ListView.builder(
-                      //         reverse: true,
-                      //         itemCount: snapshot.data!.length,
-                      //         itemBuilder: (context, index) {
-                      //           DateTime timeStamp = DateTime.parse(
-                      //               snapshot.data![index].timeStamp!);
+                      StreamBuilder<List<ChatModel>>(
+                        stream: groupController
+                            .getGroupMessages(widget.groupModel.id!),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              // child: CircularProgressIndicator(),
+                              child: Text(""),
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text(
+                                "Error ${snapshot.error}",
+                              ),
+                            );
+                          }
+                          if (snapshot.data == null) {
+                            return Center(
+                              child: Text("No Messages"),
+                            );
+                          } else {
+                            return ListView.builder(
+                              reverse: true,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                DateTime timeStamp = DateTime.parse(
+                                    snapshot.data![index].timeStamp!);
 
-                      //           String formattedTime =
-                      //               DateFormat('hh:mm a').format(timeStamp);
+                                String formattedTime =
+                                    DateFormat('hh:mm a').format(timeStamp);
 
-                      //           return ChatBubble(
-                      //             message: snapshot.data![index].message!,
-                      //             isComming: snapshot.data![index].senderId !=
-                      //                 profileController.currentUser.value.id,
-                      //             time: formattedTime,
-                      //             status: "read",
-                      //             imageUrl:
-                      //                 snapshot.data![index].imageUrl ?? "",
-                      //           );
-                      //         },
-                      //       );
-                      //     }
-                      //   },
-                      // ),
+                                return ChatBubble(
+                                  message: snapshot.data![index].message!,
+                                  isComming: snapshot.data![index].senderId !=
+                                      profileController.currentUser.value.id,
+                                  time: formattedTime,
+                                  status: "read",
+                                  imageUrl:
+                                      snapshot.data![index].imageUrl ?? "",
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
                       Obx(
                         () => chatController.selectedImagePath.value != ""
                             ? Positioned(
