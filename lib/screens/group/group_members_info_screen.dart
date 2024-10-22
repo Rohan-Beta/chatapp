@@ -82,95 +82,95 @@ class GroupMemberInfoWidget extends StatelessWidget {
                   children: [
                     // call
 
-                    Container(
-                      height: 50,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            MyAssetsImage.call,
-                            width: 25,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Call",
-                            style: TextStyle(
-                              color: Color(0xff039C00),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   height: 50,
+                    //   padding: EdgeInsets.all(15),
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(15),
+                    //     color: Theme.of(context).colorScheme.background,
+                    //   ),
+                    //   child: Row(
+                    //     children: [
+                    //       SvgPicture.asset(
+                    //         MyAssetsImage.call,
+                    //         width: 25,
+                    //       ),
+                    //       SizedBox(width: 10),
+                    //       Text(
+                    //         "Call",
+                    //         style: TextStyle(
+                    //           color: Color(0xff039C00),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     // video call
 
-                    Container(
-                      height: 50,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            MyAssetsImage.videoCall,
-                            width: 25,
-                            color: Color(0xffFF9900),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Video",
-                            style: TextStyle(
-                              color: Color(0xffFF9900),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   height: 50,
+                    //   padding: EdgeInsets.all(15),
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(15),
+                    //     color: Theme.of(context).colorScheme.background,
+                    //   ),
+                    //   child: Row(
+                    //     children: [
+                    //       SvgPicture.asset(
+                    //         MyAssetsImage.videoCall,
+                    //         width: 25,
+                    //         color: Color(0xffFF9900),
+                    //       ),
+                    //       SizedBox(width: 10),
+                    //       Text(
+                    //         "Video",
+                    //         style: TextStyle(
+                    //           color: Color(0xffFF9900),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     // chat
 
-                    InkWell(
-                      onTap: () {
-                        var newMember = UserModel(
-                          email: userEmail,
-                          name: userName,
-                          profileImage: profileImage,
-                        );
-                        groupController.addMemberToGroup(groupId, newMember);
-                      },
-                      child: Container(
-                        height: 50,
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                        child: Row(
-                          children: [
-                            // SvgPicture.asset(
-                            //   MyAssetsImage.chat,
-                            //   width: 25,
-                            //   color: Color(0xff0057FF),
-                            // ),
-                            Icon(
-                              Icons.person_add_alt_1,
-                              color: Color(0xff0057FF),
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              "Add",
-                              style: TextStyle(
-                                color: Color(0xff0057FF),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () {
+                    //     // var newMember = UserModel(
+                    //     //   email: userEmail,
+                    //     //   name: userName,
+                    //     //   profileImage: profileImage,
+                    //     // );
+                    //     // groupController.addMemberToGroup(groupId, newMember);
+                    //   },
+                    //   child: Container(
+                    //     height: 50,
+                    //     padding: EdgeInsets.all(15),
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(15),
+                    //       color: Theme.of(context).colorScheme.background,
+                    //     ),
+                    //     child: Row(
+                    //       children: [
+                    //         // SvgPicture.asset(
+                    //         //   MyAssetsImage.chat,
+                    //         //   width: 25,
+                    //         //   color: Color(0xff0057FF),
+                    //         // ),
+                    //         Icon(
+                    //           Icons.person_add_alt_1,
+                    //           color: Color(0xff0057FF),
+                    //         ),
+                    //         SizedBox(width: 10),
+                    //         Text(
+                    //           "Add",
+                    //           style: TextStyle(
+                    //             color: Color(0xff0057FF),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],

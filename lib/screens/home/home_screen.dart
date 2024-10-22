@@ -3,6 +3,7 @@
 import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
+import 'package:chatapp/controller/status_controller.dart';
 import 'package:chatapp/screens/group/group_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
 import 'package:chatapp/screens/home/home_widget/glass_box.dart';
@@ -52,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     ProfileController profileController = Get.put(ProfileController());
     ContactController contactController = Get.put(ContactController());
+    StatusController statusController = Get.put(StatusController());
 
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
