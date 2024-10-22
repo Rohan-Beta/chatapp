@@ -8,9 +8,13 @@ class StatusController extends GetxController with WidgetsBindingObserver {
   final auth = FirebaseAuth.instance;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
+
+    await db.collection("users").doc(auth.currentUser!.uid).update(
+      {"Status": "Online"},
+    );
   }
 
   @override
@@ -24,7 +28,7 @@ class StatusController extends GetxController with WidgetsBindingObserver {
         {"Status": "Online"},
       );
       print("online");
-    } else if (state == AppLifecycleState.paused) {
+    } else if (state == AppLifecycleState.inactive) {
       await db.collection("users").doc(auth.currentUser!.uid).update(
         {"Status": "Offline"},
       );

@@ -89,9 +89,23 @@ class _ChatScreenState extends State<ChatScreen> {
                     widget.userModel.name!,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  Text(
-                    widget.userModel.status ?? "status",
-                    style: Theme.of(context).textTheme.labelSmall,
+                  StreamBuilder(
+                    stream: chatController.getStatus(widget.userModel.id!),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text("....");
+                      } else {
+                        return Text(
+                          snapshot.data!.status ?? "",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: snapshot.data!.status == "Online"
+                                ? Colors.white
+                                : Colors.grey,
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
