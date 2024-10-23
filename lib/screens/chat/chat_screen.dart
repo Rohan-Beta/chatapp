@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chatapp/controller/call_controller.dart';
 import 'package:chatapp/controller/chat_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
@@ -31,6 +32,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     ChatController chatController = Get.put(ChatController());
     ProfileController profileController = Get.put(ProfileController());
+    CallController callController = Get.put(CallController());
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
     TextEditingController messageController = TextEditingController();
@@ -114,7 +116,10 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              callController.callAction(
+                  widget.userModel, profileController.currentUser.value);
+            },
             icon: Icon(Icons.phone),
           ),
           IconButton(
