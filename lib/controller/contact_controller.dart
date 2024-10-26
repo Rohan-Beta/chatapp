@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:chatapp/model/chat_room_model.dart';
 import 'package:chatapp/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -77,7 +79,7 @@ class ContactController extends GetxController {
             user.toJson(),
           );
     } catch (e) {
-      print("error while saving contact" + e.toString());
+      print("error while saving contact$e");
     }
   }
 

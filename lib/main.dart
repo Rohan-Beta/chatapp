@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:chatapp/controller/call_controller.dart';
 import 'package:chatapp/screens/Auth/auth_screen.dart';
 import 'package:chatapp/utils/Themes.dart';
 import 'package:chatapp/utils/screen_route.dart';
@@ -37,7 +36,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // CallController callController = Get.put(CallController());
     return GetMaterialApp(
       builder: FToastBuilder(),
       debugShowCheckedModeBanner: false,

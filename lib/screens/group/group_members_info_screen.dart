@@ -3,10 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/controller/group_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
-import 'package:chatapp/model/user_model.dart';
-import 'package:chatapp/utils/images.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class GroupMemberInfoWidget extends StatelessWidget {

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:chatapp/controller/splash_controller.dart';
 import 'package:chatapp/utils/images.dart';
 import 'package:flutter/material.dart';

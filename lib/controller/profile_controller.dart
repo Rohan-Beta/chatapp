@@ -1,4 +1,4 @@
-// ignore_for_file: annotate_overrides
+// ignore_for_file: annotate_overrides, avoid_print
 
 import 'dart:io';
 
@@ -66,7 +66,7 @@ class ProfileController extends GetxController {
   }
 
   Future<String> uploadFileToFirebase(String imagePath) async {
-    final path = "files/${imagePath}";
+    final path = "files/$imagePath";
     final file = File(imagePath);
 
     if (imagePath != "") {

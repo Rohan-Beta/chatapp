@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:chatapp/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +12,7 @@ class DBController extends GetxController {
   RxList<UserModel> userList = <UserModel>[].obs;
   RxBool isLoading = false.obs;
 
+  @override
   void onInit() async {
     super.onInit();
     await getUserList();
