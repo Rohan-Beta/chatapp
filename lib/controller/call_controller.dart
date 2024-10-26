@@ -30,16 +30,16 @@ class CallController extends GetxController {
           icon: Icon(Icons.call),
           onTap: (snack) {
             Get.back();
-            Get.to(
-              AudioCallScreen(
-                target: UserModel(
-                  id: callData.callerUid,
-                  name: callData.callerName,
-                  email: callData.callerEmail,
-                  profileImage: callData.callerPic,
-                ),
-              ),
-            );
+            // Get.to(
+            // AudioCallScreen(
+            //   target: UserModel(
+            //     id: callData.callerUid,
+            //     name: callData.callerName,
+            //     email: callData.callerEmail,
+            //     profileImage: callData.callerPic,
+            //   ),
+            // ),
+            // );
           },
           callData.callerName!,
           "Incoming call",

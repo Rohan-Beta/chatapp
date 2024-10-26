@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CallController callController = Get.put(CallController());
+    // CallController callController = Get.put(CallController());
     return GetMaterialApp(
       builder: FToastBuilder(),
       debugShowCheckedModeBanner: false,
