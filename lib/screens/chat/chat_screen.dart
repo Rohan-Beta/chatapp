@@ -9,6 +9,7 @@ import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/user_model.dart';
+import 'package:chatapp/screens/call/video_call_screen.dart';
 import 'package:chatapp/screens/chat/chat_%20widget/chat_bubble.dart';
 import 'package:chatapp/screens/user_profile/user_profile_screen.dart';
 import 'package:chatapp/utils/images.dart';
@@ -118,13 +119,17 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             onPressed: () {
               // Get.to(AudioCallScreen(target: widget.userModel));
-              callController.callAction(
-                  widget.userModel, profileController.currentUser.value);
+              callController.callAction(widget.userModel,
+                  profileController.currentUser.value, "audio");
             },
             icon: Icon(Icons.phone),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // Get.to(VideoCallScreen(target: widget.userModel));
+              callController.callAction(widget.userModel,
+                  profileController.currentUser.value, "video");
+            },
             icon: Icon(Icons.videocam),
           ),
         ],
