@@ -4,6 +4,7 @@ import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
 import 'package:chatapp/controller/status_controller.dart';
+import 'package:chatapp/screens/call/call_history_screen.dart';
 import 'package:chatapp/screens/group/group_screen.dart';
 import 'package:chatapp/screens/home/home_widget/chat_list_widget.dart';
 import 'package:chatapp/screens/home/home_widget/glass_box.dart';
@@ -115,9 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             ChatListWidget(),
                             GroupScreen(),
-                            ListTile(
-                              title: Text("call"),
-                            ),
+                            CallHistoryScreen(),
                           ],
                           onPageChanged: (value) {
                             setState(

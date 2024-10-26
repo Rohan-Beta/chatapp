@@ -2,6 +2,7 @@
 
 import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
+import 'package:chatapp/model/call_model.dart';
 import 'package:chatapp/model/chat_model.dart';
 import 'package:chatapp/model/chat_room_model.dart';
 import 'package:chatapp/model/user_model.dart';
@@ -142,5 +143,21 @@ class ChatController extends GetxController {
         return UserModel.fromJson(event.data()!);
       },
     );
+  }
+
+  Stream<List<CallModel>> getCalls() {
+    return db
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("calls")
+        .orderBy("timestamp", descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => CallModel.fromJson(doc.data()),
+              )
+              .toList(),
+        );
   }
 }
