@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'package:chatapp/model/audio_call_model.dart';
+import 'package:chatapp/model/call_model.dart';
 import 'package:chatapp/model/user_model.dart';
-import 'package:chatapp/screens/call/audio_call_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class CallController extends GetxController {
     super.onInit();
 
     getCallNotification().listen(
-      (List<AudioCallModel> callList) {
+      (List<CallModel> callList) {
         var callData = callList[0];
 
         Get.snackbar(
@@ -57,7 +56,7 @@ class CallController extends GetxController {
 
   Future<void> callAction(UserModel receiver, UserModel caller) async {
     String id = uid;
-    var newCall = AudioCallModel(
+    var newCall = CallModel(
       id: id,
       callerName: caller.name,
       callerPic: caller.profileImage,
@@ -100,18 +99,17 @@ class CallController extends GetxController {
     }
   }
 
-  Stream<List<AudioCallModel>> getCallNotification() {
+  Stream<List<CallModel>> getCallNotification() {
     return db
         .collection("notification")
         .doc(auth.currentUser!.uid)
         .collection("call")
         .snapshots()
-        .map((snashot) => snashot.docs
-            .map((doc) => AudioCallModel.fromJson(doc.data()))
-            .toList());
+        .map((snashot) =>
+            snashot.docs.map((doc) => CallModel.fromJson(doc.data())).toList());
   }
 
-  Future<void> endcall(AudioCallModel call) async {
+  Future<void> endcall(CallModel call) async {
     try {
       await db
           .collection("notification")
