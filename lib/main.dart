@@ -43,9 +43,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      // home: GroupScreen(),
       home: AuthScreen(),
-      // home: SplashScreen(),
       getPages: screenRoute,
     );
   }

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable
 
+import 'package:chatapp/controller/call_controller.dart';
 import 'package:chatapp/controller/contact_controller.dart';
 import 'package:chatapp/controller/image_picker_controller.dart';
 import 'package:chatapp/controller/profile_controller.dart';
@@ -55,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileController profileController = Get.put(ProfileController());
     ContactController contactController = Get.put(ContactController());
     StatusController statusController = Get.put(StatusController());
+    CallController callController = Get.put(CallController());
 
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
